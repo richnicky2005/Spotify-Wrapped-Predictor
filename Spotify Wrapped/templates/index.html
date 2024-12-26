@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Spotify Playlist Manager</h1>
+        <p class="description">Manage your Spotify playlists with ease. Connect your account to get started!</p>
+        <a href="/login" class="login-button">Login with Spotify</a>
+
+        <div class="features">
+            <div class="feature">
+                <h2>View Playlists</h2>
+                <p>Access all your Spotify playlists in one place.</p>
+            </div>
+            <div class="feature">
+                <h2>Secure Access</h2>
+                <p>Safe and secure authentication through Spotify.</p>
+            </div>
+            <div class="feature">
+                <h2>Easy to Use</h2>
+                <p>Simple interface to manage your music library.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Spotify Playlist Manager. Not affiliated with Spotify AB.</p>
+        </footer>
+    </div>
+</body>
