@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start - Spotify Stats</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f7f0;
+            color: #2c3e2c;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .start-container {
+            text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #1db954;
+            font-size: 2.5em;
+            margin: 0 0 30px 0;
+        }
+
+        .start-button {
+            display: inline-block;
+            background-color: #1db954;
+            color: white;
+            font-size: 24px;
+            padding: 15px 60px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-button:hover {
+            background-color: #1ed760;
+        }
+
+        .features {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .feature {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="start-container">
+        <h1>Spotify Stats</h1>
+        <a href="/wrapped" class="start-button">Start</a>
+        <div class="features">
+            <div class="feature">Top Tracks</div>
+            <div class="feature">Top Artists</div>
+            <div class="feature">Recent Plays</div>
+        </div>
+    </div>
+</body>
+</html>
