@@ -24,7 +24,7 @@ def index():
 
 @app.route('/login')
 def login():
-    scope = 'user-read-private user-read-email'
+    scope = 'user-read-private user-read-email user-top-read'
 
     params = {
         'client_id': CLIENT_ID,
@@ -54,17 +54,16 @@ def callback():
         response = requests.post(TOKEN_URL, data=req_body)
         token_info = response.json()
 
-        print("Token Info Response:", token_info)
         session['access_token'] =  token_info['access_token']
         session['refresh_token'] = token_info['refresh_token']
         session['expires_at'] = datetime.now().timestamp() + token_info['expires_in']
 
-        return redirect('/playlists')
+        return redirect('/wrapped')
     
-@app.route('/playlists')
-def get_playlists():
+@app.route('/wrapped')
+def get_wrapped():
     if 'access_token' not in session:
-        return redirect('login')
+        return redirect('/login')
     
     if datetime.now().timestamp() > session['expires_at']:
         return redirect('/refresh-token')
@@ -73,10 +72,18 @@ def get_playlists():
         'Authorization': f"Bearer {session['access_token']}"
     }
 
-    response = requests.get(API_BASE_URL + 'me/playlists', headers=headers)
-    playlists = response.json()
+    response = {}
 
-    return jsonify(playlists)
+    response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers)).json()
+
+    response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers)).json()
+
+    response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers)).json()
+
+    session['user-data'] = response
+
+
+    return redirect('/yourwrapped')
 
 @app.route('/refresh-token')
 def refresh_token():
@@ -99,7 +106,14 @@ def refresh_token():
 
         return redirect('/playlists')
     
-if __name__ == '__main__':
+@app.route('/playlists')
+def playlists():
     
+    user_data = session.get('user_data', {})
+
+   
+    return render_template('playlists.html', user_data=user_data)
+    
+if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
 
