@@ -1,6 +1,8 @@
 import requests
 import urllib.parse
 
+import time
+
 from datetime import datetime, timedelta
 from flask import Flask, redirect, jsonify, request, session, render_template
 
@@ -24,7 +26,7 @@ def index():
 
 @app.route('/login')
 def login():
-    scope = 'user-read-private user-read-email user-top-read'
+    scope = 'user-read-private user-read-email user-top-read user-read-recently-played'
 
     params = {
         'client_id': CLIENT_ID,
@@ -72,6 +74,9 @@ def get_wrapped():
         'Authorization': f"Bearer {session['access_token']}"
     }
 
+    current_timestamp = str(int(time.time() * 1000))
+
+
     response = {}
 
     response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers)).json()
@@ -79,8 +84,12 @@ def get_wrapped():
     response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers)).json()
 
     response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers)).json()
+    response["recentlyPlayed"] = (requests.get(API_BASE_URL + 'me/player/recently-played?limit=5&before='+current_timestamp, headers=headers)).json()
 
-    return render_template('homepage.html')
+    topArtists = response['topArtists']['items']
+    topTracks = response['topTracks']['items']
+    recentlyPlayed = response['recentlyPlayed']['items']
+    return render_template('homepage.html', profile=response['profile'], topTracks=topTracks, topArtists=topArtists, recentlyPlayed=recentlyPlayed)
     
 
 @app.route('/refresh-token')
