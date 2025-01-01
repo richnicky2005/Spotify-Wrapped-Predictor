@@ -1,177 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your Spotify Stats</title>
     <script src="../static/script.js" defer></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f7f0;
-            color: #2c3e2c;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f7f0;
+        color: #2c3e2c;
+      }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-        .profile-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+      .profile-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .profile-picture {
-            width: 200px;
-            height: 200px;
-            border: 4px solid #1db954;
-            margin-right: 30px;
-        }
+      .profile-picture {
+        width: 200px;
+        height: 200px;
+        border: 4px solid #1db954;
+        margin-right: 30px;
+      }
 
-        .profile-info h1 {
-            margin: 0;
-            color: #1db954;
-            font-size: 2.5em;
-        }
+      .profile-info h1 {
+        margin: 0;
+        color: #1db954;
+        font-size: 2.5em;
+      }
 
-        h1, h2 {
-            color: #1db954;
-        }
+      h1,
+      h2 {
+        color: #1db954;
+      }
 
-        .stats-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+      .stats-section {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .top-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f8f8f8;
-            border-radius: 5px;
-            transition: transform 0.2s ease;
-        }
+      .top-item {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
+      }
 
-        .top-item:hover {
-            transform: translateX(5px);
-            background-color: #f0f0f0;
-        }
+      .top-item:hover {
+        transform: translateX(5px);
+        background-color: #f0f0f0;
+      }
 
-        .item-number {
-            font-size: 20px;
-            font-weight: bold;
-            color: #1db954;
-            margin-right: 15px;
-            width: 25px;
-        }
+      .item-number {
+        font-size: 20px;
+        font-weight: bold;
+        color: #1db954;
+        margin-right: 15px;
+        width: 25px;
+      }
 
-        .item-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 5px;
-            margin-right: 15px;
-        }
+      .item-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+        margin-right: 15px;
+      }
 
-        .item-details {
-            flex-grow: 1;
-        }
+      .item-details {
+        flex-grow: 1;
+      }
 
-        .item-details h3 {
-            margin: 0;
-            color: #2c3e2c;
-        }
+      .item-details h3 {
+        margin: 0;
+        color: #2c3e2c;
+      }
 
-        .item-details p {
-            margin: 5px 0 0;
-            color: #666;
-        }
+      .item-details p {
+        margin: 5px 0 0;
+        color: #666;
+      }
 
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
+      .section-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
 
-        .section-title h2 {
-            margin: 0;
-            font-size: 1.5em;
-        }
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.5em;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <img src="" alt="Profile Picture" class="profile-picture">
-            <div class="profile-info">
-                <h1></h1>
-                <p>Spotify Dashboard</p>
-            </div>
+      <!-- Profile Section -->
+      <div class="profile-section">
+        <img
+          src="{{profile.images[0].url}}"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
+        <div class="profile-info">
+          <h1>Welcome, {{profile.display_name}}</h1>
+          <p>Spotify Dashboard</p>
         </div>
+      </div>
 
-        <!-- Top Tracks Section -->
-        <div class="stats-section">
-            <div class="section-title">
-                <h2>Your Top 5 Tracks of 2024</h2>
-            </div>
-            {% for track in top_tracks %}
-            <div class="top-item">
-                <span class="item-number">{{ loop.index }}</span>
-                <img src="{{ track.image }}" alt="{{ track.name }}" class="item-image">
-                <div class="item-details">
-                    <h3>track.name }}</h3>
-                    <p>{{ track.artist }}</p>
-                </div>
-            </div>
-            {% endfor %}
+      <!-- Top Tracks Section -->
+      <div class="stats-section">
+        <div class="section-title">
+          <h2>Your Current Top 5 Tracks of the Year</h2>
         </div>
+        {% for track in topTracks[:5] %}
+        <div class="top-item">
+          <span class="item-number">{{ loop.index }}</span>
+          <img
+            src="{{ track.album.images[2].url }}"
+            alt="{{ track.name }}"
+            class="item-image"
+          />
+          <div class="item-details">
+            <h3>{{ track.name }}</h3>
+            <p>
+              {% for artist in track.artists %} {{ artist.name }} {% endfor %}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-        <!-- Top Artists Section -->
-        <div class="stats-section">
-            <div class="section-title">
-                <h2>Your Top 5 Artists of 2024</h2>
-            </div>
-            {% for artist in top_artists %}
-            <div class="top-item">
-                <span class="item-number">{{ loop.index }}</span>
-                <img src="{{ artist.image }}" alt="{{ artist.name }}" class="item-image">
-                <div class="item-details">
-                    <h3>{{ artist.name }}</h3>
-                    <p>{{ artist.genre }}</p>
-                </div>
-            </div>
-            {% endfor %}
+      <!-- Top Artists Section -->
+      <div class="stats-section">
+        <div class="section-title">
+          <h2>Your Current Top 5 Artists of the Year</h2>
         </div>
+        {% for artist in topArtists[:5] %}
+        <div class="top-item">
+          <span class="item-number">{{ loop.index }}</span>
+          <img
+            src="{{ artist.images[2].url }}"
+            alt="{{ artist.name }}"
+            class="item-image"
+          />
+          <div class="item-details">
+            <h3>{{ artist.name }}</h3>
+            <p>{{ artist.genres | join(', ') }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-        <!-- Recent Tracks Section -->
-        <div class="stats-section">
-            <div class="section-title">
-                <h2>Recently Played Tracks</h2>
-            </div>
-            {% for track in recent_tracks %}
-            <div class="top-item">
-                <span class="item-number">{{ loop.index }}</span>
-                <img src="{{ track.image }}" alt="{{ track.name }}" class="item-image">
-                <div class="item-details">
-                    <h3>{{ track.name }}</h3>
-                    <p>{{ track.artist }}</p>
-                </div>
-            </div>
-            {% endfor %}
+      <!-- Recent Tracks Section -->
+      <div class="stats-section">
+        <div class="section-title">
+          <h2>Recently Played Tracks</h2>
         </div>
+        {% for track in recentlyPlayed[:5] %}
+        <div class="top-item">
+          <span class="item-number">{{ loop.index }}</span>
+          <img
+            src="{{ track.track.album.images[2].url }}"
+            alt="{{ track.track.name }}"
+            class="item-image"
+          />
+          <div class="item-details">
+            <h3>{{ track.track.name }}</h3>
+            <p>
+              {% for artist in track.track.artists %} {{ artist.name }} {% endfor%}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
-</body>
+  </body>
 </html>
