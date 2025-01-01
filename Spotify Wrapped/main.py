@@ -80,10 +80,8 @@ def get_wrapped():
 
     response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers)).json()
 
-    session['user-data'] = response
-
-
-    return redirect('/yourwrapped')
+    return render_template('homepage.html')
+    
 
 @app.route('/refresh-token')
 def refresh_token():
@@ -104,16 +102,12 @@ def refresh_token():
         session['access_token'] = new_token_info['refresh_token']
         session['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
 
-        return redirect('/playlists')
+        return redirect('/wrapped')
     
-@app.route('/playlists')
-def playlists():
-    
-    user_data = session.get('user_data', {})
+# @app.route('/yourwrapped')
+# def yourwrapped():
+#     return render_template('homepage.html')
 
-   
-    return render_template('playlists.html', user_data=user_data)
-    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
 
