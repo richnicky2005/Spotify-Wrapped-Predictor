@@ -1,6 +1,6 @@
 async function FetchUserData(){
     try {
-        const response = await fetch('/wrapped'); // Replace with your server endpoint
+        const response = await fetch('/wrapped'); 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -11,17 +11,27 @@ async function FetchUserData(){
         var topTracks = data.topTracks.items
         var topArtists = data.topArtists.items
 
-        DisplayData(profile)
+        DisplayData(profile,topTracks)
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
 function DisplayData(profile){
-    var profilePic = document.getElementsByClassName("profile-picture")
-    profilePic.src = profile.images[0].url
-    var profileUsername = document.getElementsByClassName("profile-info")
-    profileUsername.getElementsByTagName("h1").innerHTML = 'Welcome, '+ profile.id
+    var profilePic = document.getElementsByClassName("profile-picture")[0]
+    if(profile.images[0].url){
+        profilePic.src = profile.images[0].url
+    }
+    else{
+        profilePic.src = "www.google.com"
+    }
+    var profileUsername = document.getElementsByClassName("profile-info")[0]
+    profileUsername.getElementsByTagName("h1")[0].innerHTML = 'Welcome, '+ profile.id
+
+    
+
+
+
 }
 
 FetchUserData()
