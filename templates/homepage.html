@@ -110,8 +110,8 @@
         font-size: 1.5em;
       }
     </style>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <div class="container">
@@ -188,7 +188,8 @@
           <div class="item-details">
             <h3>{{ track.track.name }}</h3>
             <p>
-              {% for artist in track.track.artists %} {{ artist.name }} {% endfor%}
+              {% for artist in track.track.artists %} {{ artist.name }} {%
+              endfor%}
             </p>
           </div>
         </div>
