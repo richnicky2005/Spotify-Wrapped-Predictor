@@ -13,7 +13,7 @@ CLIENT_ID = '08cc6e9e0dd14ea6808a28ff1958599d'
 
 CLIENT_SECRET = '7d48d19cd2d04d4aba5dac8b1589648c'
 
-REDIRECT_URI = 'http://localhost:5000/callback'
+REDIRECT_URI = 'https://spotify-wrapped-predictor.onrender.com/callback'
 
 
 AUTH_URL = 'https://accounts.spotify.com/authorize'
