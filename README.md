@@ -1,0 +1,1 @@
+Spotify Wrapped only shows up at the end of the year but everyone is always eager to know what their new wrapped would look like. So I made this web app to replicate your spotify wrapped. It shows you your top 5 tracks and artists since approximately a year ago. It also has a feature that shows you your 5 recent songs
