@@ -105,7 +105,7 @@ def refresh_token():
             'client_secret': CLIENT_SECRET
         }
 
-        response = request.post(TOKEN_URL, data=req_body)
+        response = requests.post(TOKEN_URL, data=req_body)
         new_token_info = response.json()
 
         session['access_token'] = new_token_info['refresh_token']
