@@ -7,6 +7,9 @@ import time
 from datetime import datetime, timedelta
 from flask import Flask, redirect, jsonify, request, session, render_template
 
+logging.basicConfig(level=logging.DEBUG)  # Log everything at DEBUG level or higher
+logger = logging.getLogger(__name__)
+
 app = Flask(__name__)
 app.secret_key = 'fcfcfcm'
 
@@ -98,7 +101,7 @@ def get_wrapped():
     
     topTracks = response['topTracks'].json()['items']
     recentlyPlayed = response['recentlyPlayed'].json()['items']
-    
+
     return render_template('homepage.html', profile=response['profile'], topTracks=topTracks, topArtists=topArtists, recentlyPlayed=recentlyPlayed)
     
 
