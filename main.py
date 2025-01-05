@@ -98,6 +98,7 @@ def get_wrapped():
     
     topTracks = response['topTracks'].json()['items']
     recentlyPlayed = response['recentlyPlayed'].json()['items']
+    
     return render_template('homepage.html', profile=response['profile'], topTracks=topTracks, topArtists=topArtists, recentlyPlayed=recentlyPlayed)
     
 
