@@ -26,6 +26,7 @@ def index():
 
 @app.route('/login')
 def login():
+    print("SUPERRR")
     scope = 'user-read-private user-read-email user-top-read user-read-recently-played'
 
     params = {
@@ -64,6 +65,7 @@ def callback():
     
 @app.route('/wrapped')
 def get_wrapped():
+    print("wrapped")
     if 'access_token' not in session:
         return redirect('/login')
     
@@ -79,16 +81,22 @@ def get_wrapped():
 
     response = {}
 
-    response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers)).json()
+    response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers))
+    print(response['profile'].text)
 
-    response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers)).json()
+    response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers))
+    print(response['profile'].text)
 
-    response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers)).json()
-    response["recentlyPlayed"] = (requests.get(API_BASE_URL + 'me/player/recently-played?limit=5&before='+current_timestamp, headers=headers)).json()
+    response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers))
+    print(response['profile'].text)
 
-    topArtists = response['topArtists']['items']
-    topTracks = response['topTracks']['items']
-    recentlyPlayed = response['recentlyPlayed']['items']
+    response["recentlyPlayed"] = (requests.get(API_BASE_URL + 'me/player/recently-played?limit=5&before='+current_timestamp, headers=headers))
+    print(response['profile'].text)
+
+    topArtists = response['topArtists'].json()['items']
+    
+    topTracks = response['topTracks'].json()['items']
+    recentlyPlayed = response['recentlyPlayed'].json()['items']
     return render_template('homepage.html', profile=response['profile'], topTracks=topTracks, topArtists=topArtists, recentlyPlayed=recentlyPlayed)
     
 
