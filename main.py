@@ -10,6 +10,7 @@ from flask import Flask, redirect, jsonify, request, session, render_template
 logging.basicConfig(level=logging.DEBUG)  # Log everything at DEBUG level or higher
 logger = logging.getLogger(__name__)
 
+
 app = Flask(__name__)
 app.secret_key = 'fcfcfcm'
 
