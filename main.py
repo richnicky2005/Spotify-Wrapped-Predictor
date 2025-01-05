@@ -1,5 +1,6 @@
 import requests
 import urllib.parse
+import logging
 
 import time
 
@@ -26,7 +27,7 @@ def index():
 
 @app.route('/login')
 def login():
-    print("SUPERRR")
+    logger.info("SUPPERRR message")
     scope = 'user-read-private user-read-email user-top-read user-read-recently-played'
 
     params = {
@@ -65,7 +66,7 @@ def callback():
     
 @app.route('/wrapped')
 def get_wrapped():
-    print("wrapped")
+    logger.info("WRAPPED message")
     if 'access_token' not in session:
         return redirect('/login')
     
