@@ -1,14 +1,14 @@
 import requests
 import urllib.parse
-import logging
+#import logging
 
 import time
 
 from datetime import datetime, timedelta
 from flask import Flask, redirect, jsonify, request, session, render_template
 
-logging.basicConfig(level=logging.DEBUG)  # Log everything at DEBUG level or higher
-logger = logging.getLogger(__name__)
+#logging.basicConfig(level=logging.DEBUG)  # Log everything at DEBUG level or higher
+#logger = logging.getLogger(__name__)
 
 
 app = Flask(__name__)
@@ -18,7 +18,8 @@ CLIENT_ID = '08cc6e9e0dd14ea6808a28ff1958599d'
 
 CLIENT_SECRET = '7d48d19cd2d04d4aba5dac8b1589648c'
 
-REDIRECT_URI = 'https://spotify-wrapped-predictor.onrender.com/callback'
+REDIRECT_URI = 'http://127.0.0.1:5000/callback'
+#REDIRECT_URI = 'https://spotify-wrapped-predictor.onrender.com/callback'
 
 
 AUTH_URL = 'https://accounts.spotify.com/authorize'
@@ -31,7 +32,7 @@ def index():
 
 @app.route('/login')
 def login():
-    logger.info("SUPPERRR message")
+    #logger.info("SUPPERRR message")
     scope = 'user-read-private user-read-email user-top-read user-read-recently-played'
 
     params = {
@@ -70,7 +71,7 @@ def callback():
     
 @app.route('/wrapped')
 def get_wrapped():
-    logger.info("WRAPPED message")
+    #logger.info("WRAPPED message")
     if 'access_token' not in session:
         return redirect('/login')
     
@@ -86,22 +87,22 @@ def get_wrapped():
 
     response = {}
 
-    response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers))
-    print(response['profile'].text)
+    response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers)).json()
+    # print(response['profile'].text)
 
-    response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers))
-    print(response['profile'].text)
+    response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers)).json()
+    # print(response['profile'].text)
 
-    response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers))
-    print(response['profile'].text)
+    response["topArtists"] = (requests.get(API_BASE_URL + 'me/top/artists?limit=6&time_range=long_term', headers=headers)).json()
+    # print(response['profile'].text)
 
-    response["recentlyPlayed"] = (requests.get(API_BASE_URL + 'me/player/recently-played?limit=5&before='+current_timestamp, headers=headers))
-    print(response['profile'].text)
+    response["recentlyPlayed"] = (requests.get(API_BASE_URL + 'me/player/recently-played?limit=5&before='+current_timestamp, headers=headers)).json()
+    # print(response['profile'].text)
 
-    topArtists = response['topArtists'].json()['items']
+    topArtists = response['topArtists']['items']
     
-    topTracks = response['topTracks'].json()['items']
-    recentlyPlayed = response['recentlyPlayed'].json()['items']
+    topTracks = response['topTracks']['items']
+    recentlyPlayed = response['recentlyPlayed']['items']
 
     return render_template('homepage.html', profile=response['profile'], topTracks=topTracks, topArtists=topArtists, recentlyPlayed=recentlyPlayed)
     
