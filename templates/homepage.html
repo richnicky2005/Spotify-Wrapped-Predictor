@@ -117,11 +117,12 @@
     <div class="container">
       <!-- Profile Section -->
       <div class="profile-section">
-        <img
-          src="{{profile.images[0].url}}"
-          alt="Profile Picture"
-          class="profile-picture"
-        />
+        {% if profile.images and profile.images | length > 0 and profile.images[0].url %}
+    <img src="{{ profile.images[0].url }}" alt="Profile Image" class="profile-picture">
+        {% else %}
+    <img src="/static/default-avatar.jpg" alt="Default Profile Image" class="profile-picture">
+        {% endif %}
+          
         <div class="profile-info">
           <h1>Welcome, {{profile.display_name}}</h1>
           <p>Spotify Dashboard</p>

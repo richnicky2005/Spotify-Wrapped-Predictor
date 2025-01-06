@@ -88,7 +88,6 @@ def get_wrapped():
     response = {}
 
     response["profile"] = (requests.get(API_BASE_URL + 'me', headers=headers)).json()
-    # print(response['profile'].text)
 
     response["topTracks"] = (requests.get(API_BASE_URL + 'me/top/tracks?limit=6&time_range=long_term', headers=headers)).json()
     # print(response['profile'].text)
